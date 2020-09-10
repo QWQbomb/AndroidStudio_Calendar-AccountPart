@@ -67,8 +67,10 @@ public class AFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AccountModel clickedAccount = (AccountModel) parent.getItemAtPosition(position);
-                //
-                dataBaseHelper.deleteOne(clickedAccount, tmp_date);
+                //测试 income 和 outcome 能否正确读出并相加 Result:success
+                Toast.makeText(getActivity(), "本月支出为: " + dataBaseHelper.monthOutcome(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "本月收入为: " + dataBaseHelper.monthIncome(), Toast.LENGTH_SHORT).show();
+                //dataBaseHelper.deleteOne(clickedAccount, tmp_date);
                 dataBaseHelper.close();
                 ShowAccountsOnListView(dataBaseHelper);
                 Toast.makeText(getActivity(), "You deleted an account!", Toast.LENGTH_SHORT).show();

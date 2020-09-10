@@ -26,13 +26,20 @@ public class AccountModel {
     // toString is necessary for printing the content of a class object
     @Override
     public String toString() {
-        return /*"com.example.calendarview.accountModel{" +
+        /*"com.example.calendarview.accountModel{" +
                 "id=" +id +*/
-                "Date=" + date +
-                ", Income=" + income +
-                ", Outcome=" + outcome +
-                ", Description='" + description + '\'' +
-                '}';
+                if(income!=0){
+                    return
+                            date +
+                            "\nIncome: " + income +
+                            /*", Outcome: " + outcome +*/
+                            "\nDescription: '" + description + '\'';
+                }else {
+                    return date +
+                            /*"\nIncome: " + income +*/
+                            "\nOutcome: " + outcome +
+                            "\nDescription: '" + description + '\'';
+                }
     }
 
     //Getters & Setters

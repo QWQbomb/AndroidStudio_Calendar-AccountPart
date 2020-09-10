@@ -139,4 +139,51 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
+    //统计每月收入/支出
+    public float monthIncome(){
+        //此处测试时无参，应传入参数为 String 类型的 date, select 语句 需 like yyyy-mm, 即可总和yy月
+        float in = 0;
+        String queryString = "SELECT * FROM " + ACCOUNT_TABLE /*+ " WHERE " + COLUMN_DATE + " == " + sDate*/;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()){
+            // loop through the cursor (result set) and create new customer objects. Put them into the return list.
+            do{
+                /*int id = cursor.getInt(0);*/
+                String date = cursor.getString(0);
+                float income = cursor.getFloat(1);
+                float outcome = cursor.getFloat(2);
+                String description = cursor.getString(3);
+                in = in + income;
+            }while(cursor.moveToNext());
+        }
+        else {
+            //failure. do not add anything to the list.
+        }
+        return in;
+    }
+
+    public float monthOutcome(){
+        //此处测试时无参，应传入参数为 String 类型的 date, select 语句 需 like yyyy-mm, 即可总和yy月
+        float out = 0;
+        String queryString = "SELECT * FROM " + ACCOUNT_TABLE /*+ " WHERE " + COLUMN_DATE + " == " + sDate*/;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()){
+            // loop through the cursor (result set) and create new customer objects. Put them into the return list.
+            do{
+                /*int id = cursor.getInt(0);*/
+                String date = cursor.getString(0);
+                float income = cursor.getFloat(1);
+                float outcome = cursor.getFloat(2);
+                String description = cursor.getString(3);
+                out = out + outcome;
+            }while(cursor.moveToNext());
+        }
+        else {
+            //failure. do not add anything to the list.
+        }
+        return out;
+    }
+
 }
