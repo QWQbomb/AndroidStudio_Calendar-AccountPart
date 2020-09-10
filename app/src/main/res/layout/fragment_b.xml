@@ -29,6 +29,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/desc_hint"
+        android:textSize="12dp"
         android:inputType="text"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,10 +79,10 @@
 
     <Button
         android:id="@+id/btn_submit"
-        android:background="@drawable/bg_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/bg_btn"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

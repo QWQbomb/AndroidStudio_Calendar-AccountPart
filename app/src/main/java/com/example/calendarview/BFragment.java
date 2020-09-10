@@ -46,7 +46,7 @@ public class BFragment extends Fragment {
         mBtnSubmit = view.findViewById(R.id.btn_submit);
         mEdDesc = view.findViewById(R.id.ed_desc);
         mEdNum = view.findViewById(R.id.ed_num);
-        tmp_date = ((MainActivity)getActivity()).getDate();
+
         /*以时间戳作为唯一 ID -> 已弃用 -> 采用数据库自增/
 
         /*单选按钮组*/
@@ -55,6 +55,7 @@ public class BFragment extends Fragment {
         mBtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tmp_date = ((MainActivity)getActivity()).getDate();
                 AccountModel accountModel = new AccountModel();
                 //income or outcome
                 int selected = money.getCheckedRadioButtonId();

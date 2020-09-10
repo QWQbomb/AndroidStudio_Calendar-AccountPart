@@ -34,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
     public String getDate(){
         return date;
     }
-    public void setDate(String date){
-        this.date = date;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
