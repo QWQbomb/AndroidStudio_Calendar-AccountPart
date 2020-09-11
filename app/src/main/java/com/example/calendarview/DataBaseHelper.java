@@ -88,7 +88,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             // loop through the cursor (result set) and create new customer objects. Put them into the return list.
             do{
                 /*int id = cursor.getInt(0);*/
-                String date = cursor.getString(0);
+                long date = cursor.getLong(0);
                 float income = cursor.getFloat(1);
                 float outcome = cursor.getFloat(2);
                 String description = cursor.getString(3);
@@ -122,7 +122,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             // loop through the cursor (result set) and create new customer objects. Put them into the return list.
             do{
                 /*int id = cursor.getInt(0);*/
-                String date = cursor.getString(0);
+                Long date = cursor.getLong(0);
                 float income = cursor.getFloat(1);
                 float outcome = cursor.getFloat(2);
                 String description = cursor.getString(3);

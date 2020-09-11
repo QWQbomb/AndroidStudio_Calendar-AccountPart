@@ -58,6 +58,8 @@ public class BFragment extends Fragment {
                 //get tmp_date 应该放在Listener里，否则会出现date不变的bug
                 tmp_date = ((MainActivity)getActivity()).getDate();
                 AccountModel accountModel = new AccountModel();
+                DateUtils du = new DateUtils();
+                long writeDate = du.date2TimeStamp(tmp_date);
                 //income or outcome
                 int selected = money.getCheckedRadioButtonId();
                 switch(selected){
@@ -65,7 +67,7 @@ public class BFragment extends Fragment {
                     case R.id.ra_income:
 
                         try{
-                            accountModel = new AccountModel( tmp_date,
+                            accountModel = new AccountModel( writeDate,
                                     Float.parseFloat(mEdNum.getText().toString()),
                                     0,
                                     mEdDesc.getText().toString());
@@ -73,13 +75,13 @@ public class BFragment extends Fragment {
                         }
                         catch(Exception e){
                             Toast.makeText(getActivity(),"Error input.", Toast.LENGTH_SHORT).show();
-                            accountModel = new AccountModel( "0", 0, 0, "An error record.");
+                            accountModel = new AccountModel( 0, 0, 0, "An error record.");
                         }
                         break;
                     /*When outcome*/
                     case R.id.ra_outcome:
                         try{
-                            accountModel = new AccountModel( tmp_date,
+                            accountModel = new AccountModel( writeDate,
                                     0,
                                     Float.parseFloat(mEdNum.getText().toString()),
                                     mEdDesc.getText().toString());
@@ -87,7 +89,7 @@ public class BFragment extends Fragment {
                         }
                         catch(Exception e){
                             Toast.makeText(getActivity(),"Error input.", Toast.LENGTH_SHORT).show();
-                            accountModel = new AccountModel( "0", 0, 0, "An error record.");
+                            accountModel = new AccountModel( 0, 0, 0, "An error record.");
                         }
                         break;
 

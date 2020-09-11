@@ -6,12 +6,12 @@ public class AccountModel {
 
 
     /*private int id;*/
-    private String date;
+    private long date;
     private float income;
     private float outcome;
     private String description;
     //constructor
-    public AccountModel(String date, float income, float outcome, String description){
+    public AccountModel(long date, float income, float outcome, String description){
         /*this.id = id;*/
         this.date = date;
         this.income = income;
@@ -28,14 +28,16 @@ public class AccountModel {
     public String toString() {
         /*"com.example.calendarview.accountModel{" +
                 "id=" +id +*/
+        DateUtils du = new DateUtils();
+        String printDate = du.timeStamp2Date(date);
                 if(income!=0){
                     return
-                            date +
+                            printDate +
                             "\nIncome: " + income +
                             /*", Outcome: " + outcome +*/
                             "\nDescription: '" + description + '\'';
                 }else {
-                    return date +
+                    return printDate +
                             /*"\nIncome: " + income +*/
                             "\nOutcome: " + outcome +
                             "\nDescription: '" + description + '\'';
@@ -47,11 +49,11 @@ public class AccountModel {
 
     public void setId(int id) { this.id = id; }*/
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
