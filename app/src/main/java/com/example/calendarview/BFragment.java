@@ -24,6 +24,7 @@ import java.util.UUID;
 import static java.sql.Types.NULL;
 
 public class BFragment extends Fragment {
+    //BFragment 用于跳出记账要键入的详细内容part
 
     private TextView mTvTitle;
     private Button mBtnSubmit;

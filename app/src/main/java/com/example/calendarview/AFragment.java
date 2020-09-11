@@ -23,7 +23,7 @@ import com.example.calendarview.R;
 import java.util.List;
 
 public class AFragment extends Fragment {
-
+    //AFragment 用于显示每日详细账单
     private TextView mTvTitle;
     private Activity mActivity;
     private ListView lv_account;
@@ -54,9 +54,11 @@ public class AFragment extends Fragment {
         mTvTitle = (TextView) view.findViewById(R.id.tv_title);
         dataBaseHelper = new DataBaseHelper(getActivity());
         tmp_date = ((MainActivity)getActivity()).getDate();
+        DateUtils du = new DateUtils();
+        final long date = du.date2TimeStamp(tmp_date);
 
         /*showAccountsOnListView(dataBaseHelper);*/
-        showSelectedDayAccountsOnListView(dataBaseHelper, tmp_date);
+        showSelectedDayAccountsOnListView(dataBaseHelper, date);
 
         if(getArguments() != null){
             mTvTitle.setText(getArguments().getString("title"));/*把传过来的值设置进去*/
@@ -71,9 +73,9 @@ public class AFragment extends Fragment {
                 //测试 income 和 outcome 能否正确读出并相加 Result:success
                 //Toast.makeText(getActivity(), "本月支出为: " + dataBaseHelper.monthOutcome(), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(getActivity(), "本月收入为: " + dataBaseHelper.monthIncome(), Toast.LENGTH_SHORT).show();
-                dataBaseHelper.deleteOne(clickedAccount, tmp_date);
+                dataBaseHelper.deleteOne(clickedAccount, clickedAccount.getDate());
                 dataBaseHelper.close();
-                showAccountsOnListView(dataBaseHelper);
+                showSelectedDayAccountsOnListView(dataBaseHelper, date);
                 Toast.makeText(getActivity(), "You deleted an account!", Toast.LENGTH_SHORT).show();
                 /*Toast.makeText(getActivity(), tmp_date, Toast.LENGTH_SHORT).show();*/
             }
@@ -86,7 +88,7 @@ public class AFragment extends Fragment {
         lv_account.setAdapter(accountArrayAdapter);
     }
 
-    private void showSelectedDayAccountsOnListView(DataBaseHelper dataBaseHelper2, String date) {
+    private void showSelectedDayAccountsOnListView(DataBaseHelper dataBaseHelper2, long date) {
         accountArrayAdapter = new ArrayAdapter<AccountModel>(getActivity(),
                 android.R.layout.simple_list_item_1, dataBaseHelper.getSelected(date));
         lv_account.setAdapter(accountArrayAdapter);

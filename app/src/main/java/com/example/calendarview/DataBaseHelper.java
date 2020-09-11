@@ -31,7 +31,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // this is called the first time a database is accessed. There should be code in here to create a new database.
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String creatTableStatement= "CREATE TABLE " + ACCOUNT_TABLE + " ( " + COLUMN_DATE + " TEXT, " + COLUMN_INCOME + " LONG, " + COLUMN_OUTCOME + " LONG, " + COLUMN_DESCRIPTION + " TEXT)";
+        String creatTableStatement= "CREATE TABLE " + ACCOUNT_TABLE + " ( " + COLUMN_DATE + " LONG, " + COLUMN_INCOME + " LONG, " + COLUMN_OUTCOME + " LONG, " + COLUMN_DESCRIPTION + " TEXT)";
 
         db.execSQL(creatTableStatement);
     }
@@ -60,12 +60,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean deleteOne(AccountModel accountModel, String date){
+    public boolean deleteOne(AccountModel accountModel, long date){
         // find accountModel in the database. if it found, delete it and return true.
         // if it's not found, return false
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM " + ACCOUNT_TABLE /*+ " WHERE " + COLUMN_DATE + " LIKE " + date*/;
+        String queryString = "DELETE FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " = " + date ;
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()){
             return true;
@@ -78,7 +78,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         List<AccountModel> returnList = new ArrayList<>();
 
         //get data from database
-        String queryString = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " != " + "0";
+        String queryString = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " != " + 0;
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -108,11 +108,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     //读取指定日期的 account
-    public List<AccountModel> getSelected(String sDate){
+    public List<AccountModel> getSelected(long sDate){
         List<AccountModel> returnList = new ArrayList<>();
 
         //get data from database
-        String queryString = "SELECT * FROM " + ACCOUNT_TABLE /*+ " WHERE " + COLUMN_DATE + " LIKE " + sDate*/ ;
+        String queryString = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " = " + sDate ;
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -142,17 +142,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     //统计每月收入/支出
-    public float monthIncome(){
-        //此处测试时无参，应传入参数为 String 类型的 date, select 语句 需 like yyyy-mm, 即可总和yy月
+    public float monthIncome(long sDate){
+        //此处测试时无参，应传入参数为 long 类型的 sDate
         float in = 0;
-        String queryString = "SELECT * FROM " + ACCOUNT_TABLE /*+ " WHERE " + COLUMN_DATE + " == " + sDate*/;
+        String queryString = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " = " + sDate;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()){
             // loop through the cursor (result set) and create new customer objects. Put them into the return list.
             do{
                 /*int id = cursor.getInt(0);*/
-                String date = cursor.getString(0);
+                long date = cursor.getLong(0);
                 float income = cursor.getFloat(1);
                 float outcome = cursor.getFloat(2);
                 String description = cursor.getString(3);
@@ -165,17 +165,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return in;
     }
 
-    public float monthOutcome(){
-        //此处测试时无参，应传入参数为 String 类型的 date, select 语句 需 like yyyy-mm, 即可总和yy月
+    public float monthOutcome(long sDate){
+        //此处测试时无参，应传入参数为 long 类型的 sDate, select 语句
         float out = 0;
-        String queryString = "SELECT * FROM " + ACCOUNT_TABLE /*+ " WHERE " + COLUMN_DATE + " == " + sDate*/;
+        String queryString = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " = " + sDate;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()){
             // loop through the cursor (result set) and create new customer objects. Put them into the return list.
             do{
                 /*int id = cursor.getInt(0);*/
-                String date = cursor.getString(0);
+                long date = cursor.getLong(0);
                 float income = cursor.getFloat(1);
                 float outcome = cursor.getFloat(2);
                 String description = cursor.getString(3);

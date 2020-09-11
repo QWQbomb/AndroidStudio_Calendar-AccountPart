@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        //this test button is to test why the application will go wrong.
+        //this test button is to test why the application will go wrong. 轮流测试各功能用的劳模button
         mBtnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 //try String2timeStamp
                 System.out.println(date);
                 DateUtils du = new DateUtils();
-                du.date2TimeStamp(date);
+                long sDate = du.date2TimeStamp(date);
 
                 //timeStamp2String Example2
                 /*SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy 年 MM 月 dd 日");
@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, selectedAccount.toString(), Toast.LENGTH_SHORT).show();
 
                 //*/
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+                System.out.println(dataBaseHelper.monthIncome(sDate) + " " + dataBaseHelper.monthOutcome(sDate));
             }
         });
 
