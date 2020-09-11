@@ -47,7 +47,7 @@ public class BFragment extends Fragment {
         mEdDesc = view.findViewById(R.id.ed_desc);
         mEdNum = view.findViewById(R.id.ed_num);
 
-        /*以时间戳作为唯一 ID -> 已弃用 -> 采用数据库自增/
+        /*以时间戳作为唯一 ID -> 已弃用 -> 采用数据库自增 / ->弃用ID/
 
         /*单选按钮组*/
         money = (RadioGroup) view.findViewById(R.id.money);
@@ -55,6 +55,7 @@ public class BFragment extends Fragment {
         mBtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //get tmp_date 应该放在Listener里，否则会出现date不变的bug
                 tmp_date = ((MainActivity)getActivity()).getDate();
                 AccountModel accountModel = new AccountModel();
                 //income or outcome

@@ -55,7 +55,8 @@ public class AFragment extends Fragment {
         dataBaseHelper = new DataBaseHelper(getActivity());
         tmp_date = ((MainActivity)getActivity()).getDate();
 
-        ShowAccountsOnListView(dataBaseHelper);
+        /*showAccountsOnListView(dataBaseHelper);*/
+        showSelectedDayAccountsOnListView(dataBaseHelper, tmp_date);
 
         if(getArguments() != null){
             mTvTitle.setText(getArguments().getString("title"));/*把传过来的值设置进去*/
@@ -72,16 +73,22 @@ public class AFragment extends Fragment {
                 //Toast.makeText(getActivity(), "本月收入为: " + dataBaseHelper.monthIncome(), Toast.LENGTH_SHORT).show();
                 dataBaseHelper.deleteOne(clickedAccount, tmp_date);
                 dataBaseHelper.close();
-                ShowAccountsOnListView(dataBaseHelper);
+                showAccountsOnListView(dataBaseHelper);
                 Toast.makeText(getActivity(), "You deleted an account!", Toast.LENGTH_SHORT).show();
                 /*Toast.makeText(getActivity(), tmp_date, Toast.LENGTH_SHORT).show();*/
             }
         });
     }
 
-    private void ShowAccountsOnListView(DataBaseHelper dataBaseHelper2) {
+    private void showAccountsOnListView(DataBaseHelper dataBaseHelper2) {
         accountArrayAdapter = new ArrayAdapter<AccountModel>(getActivity(),
                 android.R.layout.simple_list_item_1, dataBaseHelper.getAll());
+        lv_account.setAdapter(accountArrayAdapter);
+    }
+
+    private void showSelectedDayAccountsOnListView(DataBaseHelper dataBaseHelper2, String date) {
+        accountArrayAdapter = new ArrayAdapter<AccountModel>(getActivity(),
+                android.R.layout.simple_list_item_1, dataBaseHelper.getSelected(date));
         lv_account.setAdapter(accountArrayAdapter);
     }
 

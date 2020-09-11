@@ -17,6 +17,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private AFragment aFragment;
     private Button mBtnSave, mBtnTest;
     private BFragment bFragment;
-    private ListView lv_account;
     private String date;
 
     public String getDate(){
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        lv_account = findViewById(R.id.accountList);
         /*切换到BFragment*/
         mBtnSave = findViewById(R.id.btn_save);
         mBtnTest = findViewById(R.id.testButton);
@@ -69,20 +69,51 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //this test button is to test why the application will go wrong.
-        /*mBtnTest.setOnClickListener(new View.OnClickListener() {
+        mBtnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
-                    List<AccountModel> allAccount = dataBaseHelper.getAll();
+                date = getDate();
+                /*Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
+                Timestamp ts = Timestamp.valueOf(date);
+                System.out.println("获取到的Date的时间戳: " + ts);
 
-                    ArrayAdapter accountArrayAdapter = new ArrayAdapter<AccountModel>(MainActivity.this,
-                            android.R.layout.simple_list_item_1, allAccount);
-                    *//*lv_account.setAdapter(accountArrayAdapter);*//*
+                //timeStamp2String Example1
+                System.out.println("时间戳: " + timeStamp);
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));      // 时间戳转换成时间
+                System.out.println("格式化结果：" + sd);*/
 
-                    //测试数据是否正确读出
-                    *//*Toast.makeText(MainActivity.this, allAccount.toString(), Toast.LENGTH_SHORT).show();*//*
+                //try String2timeStamp
+                System.out.println(date);
+                try {
+                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                    Date test = sdf.parse(date);
+                    Long timeStamp = test.getTime();
+                    sdf=new SimpleDateFormat("yyyy-MM-dd");
+                    String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+                    System.out.println("获取到的时间戳: " + timeStamp + " 相应的日期为: " + sd );
+
+                }catch (Exception e){
+                    System.out.println("An error occurred.");
+                }
+
+                //timeStamp2String Example2
+                /*SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy 年 MM 月 dd 日");
+                String sd2 = sdf2.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+                System.out.println("格式化结果：" + sd2);*/
+
+                /*DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+                List<AccountModel> selectedAccount = dataBaseHelper.getSelected(date);
+
+                ArrayAdapter accountArrayAdapter = new ArrayAdapter<AccountModel>(MainActivity.this,
+                    android.R.layout.simple_list_item_1, dataBaseHelper.getSelected(date));
+
+                //测试数据是否正确读出
+                Toast.makeText(MainActivity.this, selectedAccount.toString(), Toast.LENGTH_SHORT).show();
+
+                //*/
             }
-        });*/
+        });
 
 
         /*实例化Afragment*/

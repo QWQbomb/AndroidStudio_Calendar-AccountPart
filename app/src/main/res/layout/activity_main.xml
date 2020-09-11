@@ -75,7 +75,6 @@
         android:paddingRight="20dp"
         android:text="SQL测试按钮"
         android:textColor="#FFF"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/fl_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_save"

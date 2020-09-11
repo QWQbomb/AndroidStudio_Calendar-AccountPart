@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.provider.Settings.System.DATE_FORMAT;
+import static java.sql.Types.DATE;
 import static java.sql.Types.INTEGER;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
@@ -110,7 +112,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         List<AccountModel> returnList = new ArrayList<>();
 
         //get data from database
-        String queryString = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " == " + sDate;
+        String queryString = "SELECT * FROM " + ACCOUNT_TABLE /*+ " WHERE " + COLUMN_DATE + " LIKE " + sDate*/ ;
 
         SQLiteDatabase db = this.getReadableDatabase();
 
