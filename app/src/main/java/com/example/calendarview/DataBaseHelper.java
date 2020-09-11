@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // this is called the first time a database is accessed. There should be code in here to create a new database.
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String creatTableStatement= "CREATE TABLE " + ACCOUNT_TABLE + " ( " + COLUMN_DATE + " LONG, " + COLUMN_INCOME + " FLOAT, " + COLUMN_OUTCOME + " FLOAT, " + COLUMN_DESCRIPTION + " TEXT)";
+        String creatTableStatement= "CREATE TABLE " + ACCOUNT_TABLE + " ( " + COLUMN_DATE + " LONG, " + COLUMN_INCOME + " DECIMAL, " + COLUMN_OUTCOME + " DECIMAL, " + COLUMN_DESCRIPTION + " TEXT)";
 
         db.execSQL(creatTableStatement);
     }
@@ -66,8 +67,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "DELETE FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " = " + accountModel.getDate() +
-                " AND " + COLUMN_INCOME + " = " + accountModel.getIncome() +
-                " AND " + COLUMN_OUTCOME + " = " + accountModel.getOutcome();
+                " AND " + COLUMN_INCOME + " = " + BigDecimal.valueOf(accountModel.getIncome()) +
+                " AND " + COLUMN_OUTCOME + " = " + BigDecimal.valueOf(accountModel.getOutcome());
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()){
             return true;
