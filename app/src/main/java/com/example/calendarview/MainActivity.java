@@ -85,17 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //try String2timeStamp
                 System.out.println(date);
-                try {
-                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-                    Date test = sdf.parse(date);
-                    Long timeStamp = test.getTime();
-                    sdf=new SimpleDateFormat("yyyy-MM-dd");
-                    String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
-                    System.out.println("获取到的时间戳: " + timeStamp + " 相应的日期为: " + sd );
-
-                }catch (Exception e){
-                    System.out.println("An error occurred.");
-                }
+                DateUtils du = new DateUtils();
+                du.date2TimeStamp(date);
 
                 //timeStamp2String Example2
                 /*SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy 年 MM 月 dd 日");
