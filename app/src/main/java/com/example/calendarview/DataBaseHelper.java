@@ -31,7 +31,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // this is called the first time a database is accessed. There should be code in here to create a new database.
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String creatTableStatement= "CREATE TABLE " + ACCOUNT_TABLE + " ( " + COLUMN_DATE + " LONG, " + COLUMN_INCOME + " LONG, " + COLUMN_OUTCOME + " LONG, " + COLUMN_DESCRIPTION + " TEXT)";
+        String creatTableStatement= "CREATE TABLE " + ACCOUNT_TABLE + " ( " + COLUMN_DATE + " LONG, " + COLUMN_INCOME + " FLOAT, " + COLUMN_OUTCOME + " FLOAT, " + COLUMN_DESCRIPTION + " TEXT)";
 
         db.execSQL(creatTableStatement);
     }
@@ -60,12 +60,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean deleteOne(AccountModel accountModel, long date){
+    public boolean deleteOne(AccountModel accountModel){
         // find accountModel in the database. if it found, delete it and return true.
         // if it's not found, return false
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " = " + date ;
+        String queryString = "DELETE FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " = " + accountModel.getDate() +
+                " AND " + COLUMN_INCOME + " = " + accountModel.getIncome() +
+                " AND " + COLUMN_OUTCOME + " = " + accountModel.getOutcome();
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()){
             return true;

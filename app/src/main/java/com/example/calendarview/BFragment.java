@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.calendarview.R;
 
@@ -115,6 +116,8 @@ public class BFragment extends Fragment {
                 mEdDesc.setText("");
                 /*mEdDesc.setText(tmp_date);//用于测试BFragment是否能正确获取到MainActivity中的date参数*/
                 mEdNum.setText("");
+
+                getActivity().getSupportFragmentManager().popBackStack();//返回刚才的AFragment 防止出现重叠
             }
         });
 

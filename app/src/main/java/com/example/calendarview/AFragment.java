@@ -73,7 +73,7 @@ public class AFragment extends Fragment {
                 //测试 income 和 outcome 能否正确读出并相加 Result:success
                 //Toast.makeText(getActivity(), "本月支出为: " + dataBaseHelper.monthOutcome(), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(getActivity(), "本月收入为: " + dataBaseHelper.monthIncome(), Toast.LENGTH_SHORT).show();
-                dataBaseHelper.deleteOne(clickedAccount, clickedAccount.getDate());
+                dataBaseHelper.deleteOne(clickedAccount);
                 dataBaseHelper.close();
                 showSelectedDayAccountsOnListView(dataBaseHelper, date);
                 Toast.makeText(getActivity(), "You deleted an account!", Toast.LENGTH_SHORT).show();
