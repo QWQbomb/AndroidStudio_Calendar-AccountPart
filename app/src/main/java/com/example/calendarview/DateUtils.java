@@ -7,13 +7,13 @@ public class DateUtils {
     public String timeStamp2Date(long ts){
         Long timeStamp = ts;  //获取当前时间戳
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));      // 时间戳转换成时间
+        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
         /*System.out.println("格式化结果：" + sd);*/
         return sd;
     }
 
     public long date2TimeStamp(String date){
-        try {
+        try {// 时间戳转换成时间
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
             Date test = sdf.parse(date);
             Long timeStamp = test.getTime();

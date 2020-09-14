@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("格式化结果：" + sd);*/
 
                 //try String2timeStamp
+
                 System.out.println(date);
                 DateUtils du = new DateUtils();
                 long sDate = du.date2TimeStamp(date);
@@ -104,7 +105,10 @@ public class MainActivity extends AppCompatActivity {
 
                 //*/
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
-                System.out.println(dataBaseHelper.monthIncome(sDate) + " " + dataBaseHelper.monthOutcome(sDate));
+
+                //测试修改后的本月收入/支出函数 例子：传入 2020-9-1 即可统计9月收入/支出
+                System.out.println("本月收入: "+ dataBaseHelper.monthIncome("2020-9-1") + " 本月支出: " + dataBaseHelper.monthOutcome("2020-9-1"));
+                dataBaseHelper.close();
             }
         });
 

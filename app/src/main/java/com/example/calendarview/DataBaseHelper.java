@@ -145,8 +145,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     //统计每月收入/支出
-    public float monthIncome(long sDate){
+/*    public float monthIncome(long sDate){
         //此处测试时无参，应传入参数为 long 类型的 sDate
+        DateUtils du = new DateUtils();
         float in = 0;
         String queryString = "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + COLUMN_DATE + " = " + sDate;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -154,7 +155,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             // loop through the cursor (result set) and create new customer objects. Put them into the return list.
             do{
-                /*int id = cursor.getInt(0);*/
+                *//*int id = cursor.getInt(0);*//*
                 long date = cursor.getLong(0);
                 float income = cursor.getFloat(1);
                 float outcome = cursor.getFloat(2);
@@ -177,9 +178,63 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             // loop through the cursor (result set) and create new customer objects. Put them into the return list.
             do{
-                /*int id = cursor.getInt(0);*/
+                *//*int id = cursor.getInt(0);*//*
                 long date = cursor.getLong(0);
                 float income = cursor.getFloat(1);
+                float outcome = cursor.getFloat(2);
+                String description = cursor.getString(3);
+                out = out + outcome;
+            }while(cursor.moveToNext());
+        }
+        else {
+            //failure. do not add anything to the list.
+        }
+        return out;
+    }*/
+
+    public float monthIncome (String date){
+        DateUtils du = new DateUtils();
+        float in = 0;
+        long tmp_ts = du.date2TimeStamp(date);
+        long gap = (3600*24*30);
+        String queryString =  "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " +
+                "(" + COLUMN_DATE + "-"  + tmp_ts + ")" + "/" +1000 + "<=" + gap +
+                " AND " + "(" + COLUMN_DATE + "-"  + tmp_ts + ")" + "/" + 1000 + ">=" + 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()){
+            // loop through the cursor (result set) and create new customer objects. Put them into the return list.
+            do{
+                /*int id = cursor.getInt(0);*/
+                /*long date = cursor.getLong(0);*/
+                float income = cursor.getFloat(1);
+                /*float outcome = cursor.getFloat(2);*/
+                String description = cursor.getString(3);
+                in = in + income;
+            }while(cursor.moveToNext());
+        }
+        else {
+            //failure. do not add anything to the list.
+        }
+        return in;
+    }
+
+    public float monthOutcome (String date){
+        DateUtils du = new DateUtils();
+        float out = 0;
+        long tmp_ts = du.date2TimeStamp(date);
+        long gap = (3600*24*30);
+        String queryString =  "SELECT * FROM " + ACCOUNT_TABLE + " WHERE " +
+                "(" + COLUMN_DATE + "-"  + tmp_ts + ")" + "/" +1000 + "<=" + gap +
+                " AND " + "(" + COLUMN_DATE + "-"  + tmp_ts + ")" + "/" + 1000 + ">=" + 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()){
+            // loop through the cursor (result set) and create new customer objects. Put them into the return list.
+            do{
+                /*int id = cursor.getInt(0);*/
+                /*long date = cursor.getLong(0);*/
+                /*float income = cursor.getFloat(1);*/
                 float outcome = cursor.getFloat(2);
                 String description = cursor.getString(3);
                 out = out + outcome;
